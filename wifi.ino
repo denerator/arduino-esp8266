@@ -23,6 +23,9 @@ void setup()
   wifi.connectToAP("OnePlus 5", "11117777");
   Serial.println("Get IP...");
   wifi.getIP();
+  Serial.println("Starting server...");
+  wifi.configureConnectionsMode(1);
+  wifi.startServer(80);
 }
 
 
