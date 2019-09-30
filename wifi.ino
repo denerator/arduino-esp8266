@@ -9,12 +9,10 @@ ESP8266 wifi(&logger, DEBUG);
 void setup()
 {
 
-  Serial.begin(9600);
-  logger.begin(115200);
+  Serial.begin(115200);
+  logger.begin(9600);
 
-  while (!logger) {
-
-  }
+  while (!logger) {}
   Serial.println("Ready");
   wifi.init();
   Serial.println("Enable station mode…");
@@ -22,7 +20,9 @@ void setup()
   Serial.println("Connecting to the AP...");
   wifi.connectToAP("OnePlus 5", "11117777");
   Serial.println("Get IP...");
-  wifi.getIP();
+  String IP = wifi.getIP();
+  Serial.print("Your IP is ");
+  Serial.println(IP);
   Serial.println("Starting server...");
   wifi.configureConnectionsMode(1);
   wifi.startServer(80);

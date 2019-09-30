@@ -5,6 +5,7 @@ class ESP8266 {
     boolean isDebug;
     Stream *logger;
     String sendData(String command, int timeout);
+    boolean isOK(String response);
 
   public:
     ESP8266(Stream *log, boolean debug);

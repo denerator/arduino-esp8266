@@ -13,6 +13,10 @@ String ESP8266::init() {
   return sendData(command, 2000);
 }
 
+boolean ESP8266::isOK(String response) { // TODO: add response handler
+  return response.indexOf("OK") >= 0;
+}
+
 String ESP8266::enableMode(int mode) {
   String command = "AT+CWMODE=" + String(mode) + lineBreak;
   return sendData(command, 2000);
@@ -25,13 +29,17 @@ String ESP8266::connectToAP(String ssid, String password) {
   command += password;
   command += "\"";
   command += lineBreak;
-  return sendData(command, 6000);
+  return sendData(command, 10000);
 }
 
 String ESP8266::getIP() {
   String command = "AT+CIFSR";
   command += lineBreak;
-  return sendData(command, 4000);
+  String response = sendData(command, 8000);
+  int start = response.indexOf("\"") + 1;
+  int finish = response.indexOf("\"", start);
+  String IP = response.substring(start, finish);
+  return IP;
 }
 
 String ESP8266::configureConnectionsMode(int mode) {
